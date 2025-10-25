@@ -1,7 +1,9 @@
 import Sidebar from "./components/Sidebar.tsx";
 import RecipeList from "./components/RecipeList.tsx";
 import type { Category } from "./types";
+import type { Recipe } from "./types/recipe.ts";
 import { useState } from "react";
+import "./App.css"
 
 const categories: Category[] = [
   { id: 1, category: "Breakfast"},
@@ -19,7 +21,7 @@ export default function App() {
   const [selectedCategoryId, setCategoryId] = useState<number | null>(null);
 
   return (
-    <div>
+    <div className="App">
       <Sidebar
         categories={categories}
         selectedCategoryId={selectedCategoryId}
