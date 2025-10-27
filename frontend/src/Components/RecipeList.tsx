@@ -4,10 +4,11 @@ type RecipeListProps = {
     recipes: Recipe[];
     selectedCategoryId: number | null;
     onDelete: (id: number) => void;
+    onEdit: (recipe: Recipe) => void;
 };
 
 export default function RecipeList(props: RecipeListProps){
-    const { recipes, selectedCategoryId, onDelete } = props;
+    const { recipes, selectedCategoryId, onDelete, onEdit } = props;
 
     //filter recipes by category
     const filteredRecipes = selectedCategoryId 
@@ -23,6 +24,7 @@ export default function RecipeList(props: RecipeListProps){
                         <p>{r.ingredients}</p>
                         <p>{r.instructions}</p>
                         <button onClick={() => onDelete(r.id)}>Delete</button>
+                        <button onClick={() => onEdit(r)}>Edit</button>
                     </li>
                 ))}
             </ul>

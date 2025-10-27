@@ -18,6 +18,7 @@ const starterRecipes: Recipe[] = [
 export default function App() {
   const [selectedCategoryId, setCategoryId] = useState<number | null>(null);
   const [recipes, setRecipes] = useState<Recipe[]>(starterRecipes);
+  const [recipeToEdit, setRecipeToEdit] = useState<Recipe | null>(null);
 
   const handleAddRecipe = (newRecipe: Recipe) => {
     setRecipes([...recipes, newRecipe]);
@@ -25,6 +26,10 @@ export default function App() {
 
   const handleDeleteRecipe = (id: number) => {
     setRecipes(recipes.filter(r => r.id !== id));
+  }
+
+  const handleEditRecipe = (editedRecipe: Recipe) => {
+    setRecipes(recipes.map(r => r.id === editedRecipe.id ? editedRecipe : r));
   }
 
   return (
@@ -35,11 +40,16 @@ export default function App() {
         onSelect={setCategoryId}
       />
       <main>
-        <AddRecipeForm onAdd={handleAddRecipe}/>
+        <AddRecipeForm 
+          recipe={recipeToEdit}
+          onAdd={handleAddRecipe}
+          onEdit={handleEditRecipe}
+        />
         <RecipeList
           recipes={recipes}
           selectedCategoryId={selectedCategoryId}
           onDelete={handleDeleteRecipe}
+          onEdit={setRecipeToEdit}
         />
       </main>
 

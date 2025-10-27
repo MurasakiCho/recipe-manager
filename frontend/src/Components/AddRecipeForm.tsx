@@ -2,27 +2,34 @@ import type { Recipe } from "../types/recipe";
 import { useState } from "react";
 
 type AddRecipeFormProps = {
+    recipe?: Recipe | null; //OPTIONAL prop: for editing recipes
     onAdd: (recipe: Recipe) => void; //communicate back up to parent (App) to handle what happens to data
+    onEdit: (recipe: Recipe) => void;
 };
 
 export default function AddRecipeForm(props: AddRecipeFormProps){
-    const [recipeName, setRecipeName] = useState(""); //new state with default empty string
-    const [ingredients, setIngredients] = useState("");
-    const [instructions, setInstructions] = useState("");
-    const [selectedCategoryId, setCategoryId] = useState("1");
+    const [recipeName, setRecipeName] = useState(props.recipe?.recipeName ?? ""); //new state with default empty string
+    const [ingredients, setIngredients] = useState(props.recipe?.ingredients ?? "");
+    const [instructions, setInstructions] = useState(props.recipe?.instructions ?? "");
+    const [selectedCategoryId, setCategoryId] = useState(props.recipe?.categoryId.toString() ?? "1");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault(); //prevents page reload, which is default form behavior
 
         const recipe: Recipe = {
-            id: Date.now(), //temp id
+            id: props.recipe?.id ?? Date.now(), //temp id
             recipeName,
             ingredients,
             instructions,
             categoryId: parseInt (selectedCategoryId, 10) //convert id to int (form gives a string)
         }
 
-        props.onAdd(recipe); //send recipe to parent
+        if (props.recipe){
+            props.onEdit(recipe); //EDIT mode
+        } else {
+            props.onAdd(recipe); //send new recipe to parent to add
+        }
+
     }
 
     return(
