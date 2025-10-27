@@ -23,6 +23,10 @@ export default function App() {
     setRecipes([...recipes, newRecipe]);
   };
 
+  const handleDeleteRecipe = (id: number) => {
+    setRecipes(recipes.filter(r => r.id !== id));
+  }
+
   return (
     <div className="App">
       <Sidebar
@@ -35,6 +39,7 @@ export default function App() {
         <RecipeList
           recipes={recipes}
           selectedCategoryId={selectedCategoryId}
+          onDelete={handleDeleteRecipe}
         />
       </main>
 
