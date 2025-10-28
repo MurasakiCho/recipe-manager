@@ -1,6 +1,6 @@
 export type Recipe = {
-    id: number;
-    categoryId: number;
+    id?: number;
+    category: {id: number; categoryName: string;};
     recipeName: string;
     ingredients: string;
     instructions: string;

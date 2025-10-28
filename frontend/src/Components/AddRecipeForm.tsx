@@ -1,7 +1,8 @@
-import type { Recipe } from "../types/recipe";
+import type { Recipe, Category } from "../types";
 import { useState } from "react";
 
 type AddRecipeFormProps = {
+    categories: Category[];
     recipe?: Recipe | null; //OPTIONAL prop: for editing recipes
     onAdd: (recipe: Recipe) => void; //communicate back up to parent (App) to handle what happens to data
     onEdit: (recipe: Recipe) => void;
@@ -11,17 +12,22 @@ export default function AddRecipeForm(props: AddRecipeFormProps){
     const [recipeName, setRecipeName] = useState(props.recipe?.recipeName ?? ""); //new state with default empty string
     const [ingredients, setIngredients] = useState(props.recipe?.ingredients ?? "");
     const [instructions, setInstructions] = useState(props.recipe?.instructions ?? "");
-    const [selectedCategoryId, setCategoryId] = useState(props.recipe?.categoryId.toString() ?? "1");
+    const [selectedCategoryId, setCategoryId] = useState(props.recipe?.category.id.toString() ?? "1");
+
+    const {categories} = props;
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault(); //prevents page reload, which is default form behavior
 
         const recipe: Recipe = {
-            id: props.recipe?.id ?? Date.now(), //temp id
             recipeName,
             ingredients,
             instructions,
-            categoryId: parseInt (selectedCategoryId, 10) //convert id to int (form gives a string)
+            category: {
+                id: parseInt(selectedCategoryId),
+                categoryName: categories.find(c => c.id === parseInt(selectedCategoryId))?.category || ""
+            }
+            //categoryId: parseInt (selectedCategoryId, 10) //convert id to int (form gives a string)
         }
 
         if (props.recipe){
@@ -56,14 +62,13 @@ export default function AddRecipeForm(props: AddRecipeFormProps){
 
             <label>Category</label><br />
             <select 
-                name="category" 
-                id="category"
                 value={selectedCategoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
             >
-                <option value="1">Breakfast</option>
-                <option value="2">Lunch</option>
-                <option value="3">Dinner</option>
+                {categories.map(c =>(
+                    <option key={c.id} value={c.id}>{c.category}</option>
+                    )
+                )}
             </select><br />
 
             <button type="submit">Add Recipe</button>

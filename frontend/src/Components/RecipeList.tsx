@@ -12,7 +12,7 @@ export default function RecipeList(props: RecipeListProps){
 
     //filter recipes by category
     const filteredRecipes = selectedCategoryId 
-        ? recipes.filter((r) => r.categoryId === selectedCategoryId) 
+        ? recipes.filter((r) => r.category.id === selectedCategoryId) 
         : recipes;
 
     return(
