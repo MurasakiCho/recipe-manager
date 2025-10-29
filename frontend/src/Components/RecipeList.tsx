@@ -23,7 +23,7 @@ export default function RecipeList(props: RecipeListProps){
                         <h3>{r.recipeName}</h3>
                         <p>{r.ingredients}</p>
                         <p>{r.instructions}</p>
-                        <button onClick={() => onDelete(r.id)}>Delete</button>
+                        <button onClick={() => onDelete(r.id!)}>Delete</button>
                         <button onClick={() => onEdit(r)}>Edit</button>
                     </li>
                 ))}

@@ -47,7 +47,13 @@ export default function App() {
   };
 
   const handleDeleteRecipe = (id: number) => {
-    setRecipes(recipes.filter(r => r.id !== id));
+    fetch(`http://localhost:8080/api/recipes/${id}`, {
+      method: "DELETE"
+    }) 
+    //functional form of setRecipes that avoids stale state issues if multiple 
+    //deletes happen quickly (when the fetch is done, THEN run this function)
+      .then(() => setRecipes(prev => prev.filter(r => r.id !== id)))
+      .then(() => console.log(id));
   };
 
   const handleEditRecipe = (editedRecipe: Recipe) => {
