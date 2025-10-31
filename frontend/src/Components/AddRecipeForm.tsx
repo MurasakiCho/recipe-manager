@@ -1,5 +1,5 @@
 import type { Recipe, Category } from "../types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type AddRecipeFormProps = {
     categories: Category[];
@@ -13,13 +13,29 @@ export default function AddRecipeForm(props: AddRecipeFormProps){
     const [ingredients, setIngredients] = useState(props.recipe?.ingredients ?? "");
     const [instructions, setInstructions] = useState(props.recipe?.instructions ?? "");
     const [selectedCategoryId, setCategoryId] = useState(props.recipe?.category.id.toString() ?? "1");
-
     const {categories} = props;
+
+    useEffect(() => {
+        console.log("Recipe id:", props.recipe?.id);
+
+        if(props.recipe){
+            setRecipeName(props.recipe.recipeName);
+            setIngredients(props.recipe.ingredients);
+            setInstructions(props.recipe.instructions);
+            setCategoryId(props.recipe.category.id.toString());
+        } else {
+            setRecipeName("");
+            setIngredients("");
+            setInstructions("");
+            setCategoryId("1");
+        }
+    }, [props.recipe]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault(); //prevents page reload, which is default form behavior
 
         const recipe: Recipe = {
+            id: props.recipe?.id ?? 0,
             recipeName,
             ingredients,
             instructions,
@@ -35,7 +51,6 @@ export default function AddRecipeForm(props: AddRecipeFormProps){
         } else {
             props.onAdd(recipe); //send new recipe to parent to add
         }
-
     }
 
     return(
@@ -71,7 +86,9 @@ export default function AddRecipeForm(props: AddRecipeFormProps){
                 )}
             </select><br />
 
-            <button type="submit">Add Recipe</button>
+            <button type="submit">
+                {props.recipe ? "Edit Recipe" : "Add Recipe"}
+            </button>
         </form>
     );
 }

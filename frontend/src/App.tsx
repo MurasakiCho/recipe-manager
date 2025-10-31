@@ -57,7 +57,19 @@ export default function App() {
   };
 
   const handleEditRecipe = (editedRecipe: Recipe) => {
-    setRecipes(recipes.map(r => r.id === editedRecipe.id ? editedRecipe : r));
+    console.log("Recipe to Edit:", editedRecipe);
+
+    fetch(`http://localhost:8080/api/recipes/${editedRecipe.id}`, {
+      method: "PATCH",
+      headers:{ "Content-Type": "application/json"},
+      body: JSON.stringify(editedRecipe)
+    })
+      .then(res => res.json())
+      .then((updatedRecipe: Recipe) => setRecipes(prev =>
+        prev.map(r => r.id === updatedRecipe.id ? updatedRecipe : r)
+      ));
+
+      setRecipeToEdit(null);
   };
 
   return (
