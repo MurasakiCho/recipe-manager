@@ -34,8 +34,6 @@ export default function App() {
   }, []);
 
   const handleAddRecipe = (newRecipe: Recipe) => {
-    //setRecipes([...recipes, newRecipe]);
-    
     fetch("http://localhost:8080/api/recipes", {
       method: "POST",
       headers:{ "Content-Type": "application/json"},
@@ -57,8 +55,6 @@ export default function App() {
   };
 
   const handleEditRecipe = (editedRecipe: Recipe) => {
-    console.log("Recipe to Edit:", editedRecipe);
-
     fetch(`http://localhost:8080/api/recipes/${editedRecipe.id}`, {
       method: "PATCH",
       headers:{ "Content-Type": "application/json"},
@@ -93,8 +89,6 @@ export default function App() {
           onEdit={setRecipeToEdit}
         />
       </main>
-
-      
     </div>
   );
 }

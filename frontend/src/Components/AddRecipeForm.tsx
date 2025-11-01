@@ -35,7 +35,7 @@ export default function AddRecipeForm(props: AddRecipeFormProps){
         e.preventDefault(); //prevents page reload, which is default form behavior
 
         const recipe: Recipe = {
-            id: props.recipe?.id ?? 0,
+            ...(props.recipe?.id ? { id: props.recipe.id } : {}),
             recipeName,
             ingredients,
             instructions,
