@@ -1,3 +1,21 @@
+aside ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+aside li {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-size: large;
+    font-weight: bold;
+}
+
+aside li:hover {
+    color: #0D1F2D;
+}
+
 aside li.active {
-    background-color: cadetblue;
+    background-color: #EDD4B2;
+    color: #6b0f1a;
 }

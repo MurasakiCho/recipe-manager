@@ -20,6 +20,7 @@ export default function App() {
   const [selectedCategoryId, setCategoryId] = useState<number | null>(null);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [recipeToEdit, setRecipeToEdit] = useState<Recipe | null>(null);
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   useEffect(() => {
     fetch("http://localhost:8080/api/recipes") //returns a promise
@@ -76,12 +77,22 @@ export default function App() {
         onSelect={setCategoryId}
       />
       <main>
-        <AddRecipeForm 
-        categories={categories}
-          recipe={recipeToEdit}
-          onAdd={handleAddRecipe}
-          onEdit={handleEditRecipe}
-        />
+        {showForm && (
+          <div className="overlay">
+            <div className="form-modal">
+              <AddRecipeForm 
+                categories={categories}
+                recipe={recipeToEdit}
+                onAdd={handleAddRecipe}
+                onEdit={handleEditRecipe}
+              />
+              <button onClick={() => setShowForm(false)}>Cancel</button>
+            </div>
+          </div>
+        )}
+
+
+        
         <RecipeList
           recipes={recipes}
           selectedCategoryId={selectedCategoryId}

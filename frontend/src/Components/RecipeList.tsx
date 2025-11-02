@@ -1,4 +1,5 @@
 import type { Recipe } from "../types/recipe";
+import "./RecipeList.css";
 
 type RecipeListProps = {
     recipes: Recipe[];

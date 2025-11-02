@@ -1,14 +1,30 @@
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   display: flex;
   height: 100vh;
+  width: 100vw;
+  overflow: hidden; /*stops browser from double scrolling*/
 }
 
-.App aside {
-  width: 220px;
-  border-right: 1px solid #ddd;
-}
-
-.App main {
-  flex: 1;
+aside {
+  width: 250px;
+  background: #6B0F1A;
+  color: #EDD4B2;
   padding: 1rem;
+  border-right: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+main {
+  flex: 1;
+  background: #EDD4B2;
+  color:#6B0F1A;
+  padding: 2rem;
+  overflow-y: auto; /*vetical scroll when needed*/
 }
