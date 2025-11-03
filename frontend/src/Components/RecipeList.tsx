@@ -18,6 +18,9 @@ export default function RecipeList(props: RecipeListProps){
 
     return(
         <main>
+            {filteredRecipes.length === 0? (
+                <p>No recipes to show.</p>
+            ) : (
             <ul>
                 {filteredRecipes.map((r) => (
                     <li key={r.id} >
@@ -29,6 +32,7 @@ export default function RecipeList(props: RecipeListProps){
                     </li>
                 ))}
             </ul>
+            )}
         </main>
     );
 }

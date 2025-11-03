@@ -1,11 +1,13 @@
 import type { Recipe, Category } from "../types";
 import { useEffect, useState } from "react";
+import "./AddRecipeForm.css"
 
 type AddRecipeFormProps = {
     categories: Category[];
     recipe?: Recipe | null; //OPTIONAL prop: for editing recipes
     onAdd: (recipe: Recipe) => void; //communicate back up to parent (App) to handle what happens to data
     onEdit: (recipe: Recipe) => void;
+    onCancel: () => void;
 };
 
 export default function AddRecipeForm(props: AddRecipeFormProps){
@@ -54,41 +56,55 @@ export default function AddRecipeForm(props: AddRecipeFormProps){
     }
 
     return(
-        <form onSubmit={handleSubmit}>
-            <label>Recipe Name:</label><br/>
-            <input 
-                type="text" 
-                value={recipeName} //input shows current state
-                onChange={(e) => setRecipeName(e.target.value)} //updates state while typing
-            /><br />
+        <form onSubmit={handleSubmit} className="recipe-form">
+            <h2>{props.recipe ? "Edit Recipe" : "Add Recipe"}</h2>
 
-            <label>Ingredients:</label><br />
-            <input 
-                type="text" 
-                value={ingredients}
-                onChange={(e) => setIngredients(e.target.value)}
-            /><br />
+            <div className="form-group">
+                <label htmlFor="recipeName">Recipe Name</label>
+                <input 
+                    id="recipeName"
+                    type="text" 
+                    value={recipeName} //input shows current state
+                    onChange={(e) => setRecipeName(e.target.value)} //updates state while typing
+                />
+            </div>
 
-            <label>Instructions:</label><br />
-            <textarea
-                value={instructions}
-                onChange={(e) => setInstructions(e.target.value)}
-            ></textarea><br />
+            <div className="form-group">
+                <label htmlFor="category">Category</label>
+                <select 
+                    id="category"
+                    value={selectedCategoryId}
+                    onChange={(e) => setCategoryId(e.target.value)}
+                >
+                    {categories.map(c =>(
+                        <option key={c.id} value={c.id}>{c.category}</option>
+                        )
+                    )}
+                </select>
+            </div>  
+            
+            <div className="form-group">
+                <label htmlFor="ingredients">Ingredients:</label>
+                <textarea 
+                    id="ingredients"
+                    value={ingredients}
+                    onChange={(e) => setIngredients(e.target.value)}
+                ></textarea>
+            </div>
 
-            <label>Category</label><br />
-            <select 
-                value={selectedCategoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-            >
-                {categories.map(c =>(
-                    <option key={c.id} value={c.id}>{c.category}</option>
-                    )
-                )}
-            </select><br />
+            <div className="form-group">
+                <label htmlFor="instructions">Instructions:</label>
+                <textarea
+                    id="instructions"
+                    value={instructions}
+                    onChange={(e) => setInstructions(e.target.value)}
+                ></textarea>
+            </div>
 
-            <button type="submit">
-                {props.recipe ? "Edit Recipe" : "Add Recipe"}
-            </button>
+            <div className="button-group">
+                <button className="submit-button" type="submit">{props.recipe ? "Edit Recipe" : "Add Recipe"}</button>
+                <button className="cancel-button" onClick={props.onCancel}>Cancel</button>
+            </div>
         </form>
     );
 }

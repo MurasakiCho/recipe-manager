@@ -18,6 +18,8 @@ main li h3{
 
 main p{
     color: #6B0F1A;
+    font-weight: bold;
+    font-style: italic;
 }
 
 main button {

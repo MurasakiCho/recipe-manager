@@ -43,6 +43,8 @@ export default function App() {
     //makes sure you get the DB copy with the correct generated ID
       .then(res => res.json())
       .then(saved => setRecipes(prev => [...prev, saved])); 
+
+    setShowForm(false);
   };
 
   const handleDeleteRecipe = (id: number) => {
@@ -67,6 +69,12 @@ export default function App() {
       ));
 
       setRecipeToEdit(null);
+      setShowForm(false);
+  };
+
+  const handleEditClick = (recipe: Recipe) => {
+    setRecipeToEdit(recipe);
+    setShowForm(true);
   };
 
   return (
@@ -77,29 +85,30 @@ export default function App() {
         onSelect={setCategoryId}
       />
       <main>
-        {showForm && (
+        <button onClick={() => {
+          setRecipeToEdit(null);
+          setShowForm(true);
+          }}>Add Recipe</button>
+
+        <RecipeList
+          recipes={recipes}
+          selectedCategoryId={selectedCategoryId}
+          onDelete={handleDeleteRecipe}
+          onEdit={handleEditClick}
+        />
+      </main>
+
+      {showForm && (
           <div className="overlay">
-            <div className="form-modal">
               <AddRecipeForm 
                 categories={categories}
                 recipe={recipeToEdit}
                 onAdd={handleAddRecipe}
                 onEdit={handleEditRecipe}
+                onCancel={() => setShowForm(false)}
               />
-              <button onClick={() => setShowForm(false)}>Cancel</button>
-            </div>
           </div>
         )}
-
-
-        
-        <RecipeList
-          recipes={recipes}
-          selectedCategoryId={selectedCategoryId}
-          onDelete={handleDeleteRecipe}
-          onEdit={setRecipeToEdit}
-        />
-      </main>
     </div>
   );
 }
