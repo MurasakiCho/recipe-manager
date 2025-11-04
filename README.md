@@ -6,7 +6,6 @@ Organize recipes by category, filter, and manage them with a clean REST API.
 
 ## Features:
 - Create, update, delete, and view recipes
-- Filter recipes by category
 - Sidebar with categories and filter functionality
 - Recipe details: name, ingredients, instructions
 
