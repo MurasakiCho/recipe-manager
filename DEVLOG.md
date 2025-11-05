@@ -1,48 +1,79 @@
 ## Development Log
 1 - Java & OOP
-- Implemented Recipe, RecipeCategory, and RecipeBook classes.
-- Practiced OOP fundamentals, constructors, lists, and abstraction.
+- Implemented `Recipe`, `RecipeCategory`, and `RecipeBook` classes.
+- Practiced object-oriented programming: constructors, encapsulation, lists, and relationships
+- Focused on structuring data models to represent real-world concepts.
 
 2 - Collections & Java Syntax 
-- Added methods to add, remove, and find a recipe.
-- Practiced loops, conditionals, .equals, and error handling (removing/updating nonexistent recipes and adding null, empty, or duplicate recipes).
+- Added methods to add, remove, and get a recipe.
+- Handled invalid operations such as:
+	-  Adding duplicates
+	 - Removing non-existent recipes
+	 - Passing null or blank recipe names
+ - Practice loops, conditoinals, and `.equals()` comparisons
 
 3 - Spring Boot Setup and Basic API
-- Used https://start.spring.io/ to initialize a Spring Boot project with dependencies (Spring Web, Spring Data JPA, and PostgreSQL)
-- Copied Recipe, RecipeCategory, and RecipeBook classes into model/ package.
-- Created an ERD [docs/Recipe-Manager-ERD.drawio.png]
-- Added new ingredient classes, made Entities, and set up database relationships.
-- Setup controller, service, dto, and repository packages
+- Initialized a Spring Boot project using start.spring.io with:
+	- Spring Web
+	- Spring Data JPA
+	- PostgreSQL driver
+- Migrated core classes into a `model/` package
+- Created **controller**, **service**, **dto**, and **repository** layers.
+- Added database entities and established JPA relationships
 
 4 - Getting the backend running
-- Added MapStruct and mapper classes for easier DTO and Entity conversions.
-- Added Lombok for less boilerplate.
-- Decided to remove RecipeBook and Ingredients/RecipeIngredients for a simpler implementation
-- Created a DataSeeder to prepopulate database for testing purposes
-- Decided to remove MapStruct and Lombok; causing too many issues
-- Finished GET /recipes and POST /recipes
-- Finished PATCH and DELETE /recipes/{id}
+- Added MapStruct and Lombok, then later removed both due to complexity and conflicts.
+- Created `DataSeedeer` to auto-populate sample categories/recipes for testing.
+- Simplified schema by removing:
+	- `RecipeBook`
+	- `RecipeIngredient` join table
+	- `Ingredient` model
+- Completed all core REST API endpoints:
+	- `GET /recipes`
+	- `POST /recipes`
+	- `PATCH /recipes{id}`
+	- `DELETE /recipes{id}`
 
 5 - Frontend Skeleton
-- Downloaded and set up node + npm + react/vite project
-- Created types for category and recipe and filled in some dummy data to show on webpage
-- Utilized React's useState that tracks the current value and updates it
-- Created the Sidebar component. Made a type called SidebarProps and a function that takes in the type to set and render the properties of the component.
-- Inserted the Sidebar component into App() and passed the dummy data into it. The webpage now displays the categories and highlights whichever one is clicked!
-- Created RecipeList component. Filtered the recipes by categoryId and displayed them via App.tsx using dummy data.
-- Basic styling
+- Installed and set up Node.js, npm, and a Vite React project
+- Created reusable Types for `Recipe` and `Category` and filled in some dummy data to show on webpage
+- Implemented Sidebar component:
+	- Displays categories
+	- Highlights selected category
+ - Implemented RecipeList component:
+	 - Filters recipes by selected category
+	 - Displays recipe details
+ - Added CSS styling and layout
 
 6 - CRUD Functions through UI
-- Created a Component for adding recipes. Utilized onAdd to send , useState and onChange for capturing input, and the form html element.
-- Created onAdd to send user input (the new recipe) to the parent (App)
-- Used useState and onChange which updates the state in real time on the form.
-- Gave recipe's a delete button that, when clicked, signals to App.tsx to delete a specified recipe and the list updates.
-- Reused AddRecipeForm component to edit recipes. Implemented an optional recipe prop, that when included, the form pre-fills with the recipe's values.
+- Built `AddRecipeForm` component with controlled inputs via `useState`.
+- Enabled:
+	- Adding new recipes (onAdd -> sends data up to App state)
+	- Deleteing recipes (via callback to App)
+	- Editing recipes (shared form logic that pre-populates form when editing)
+- Implemented conditional UI states and component reuse.
 
 7 - Connecting the Backend to the Frontend
-- Utilized React's useEffect hook to fetch data from the API and display it on the UI.
-- Configured RecipeCategoryController with GET /api/categories for the frontend to dynamically fetch category options
-- Corrected a mismatch between frontend payload (categoryId) and backend DTO (category: {id, categoryName})
-- Also encountered StaleObjectStateException from sending an id field for new recipes. Hibernate assumed it was an update. Made id optional in the frontend recipe type and sent new recipes without an id so JPA can create one automatically.
-- Used fetch to POST new recipes and update the UI accordingly.
+- Used `useEffect` to fetch data from backend on page load:
+	- `GET /recipes`
+	- `GET /categories`
+- Discovered and fixed:
+	- DTO mismatch (`categoryId` vs `category: { id, ctegoryName }`)
+	- `StaleObjectStateException` caused by sending an id during creation.
+- Updated POST and PATCH requests to send and receive full Recipe objects.
+- UI now updates live after API responses (`setRecipes(prev => [...])`)
+
+8 - UI/UX Upgrade and Form Overlay
+- Added a modal overlay to show recipe form as a popup.
+- Added a Cancel button to close the form without submitting.
+- Styled form with custom CS:
+	- Clear labels
+	- Consistent spacing and typography
+	- Button hover states
+- Improved layout:
+	- Sidebar has fixed width
+	- Recipes fill remaining space
+- Added a conditional UI state:
+	- If no recipes exist for the selected category, "No recipes to show."
+- App now behaves more like a polished app rather than a demo.
 	
