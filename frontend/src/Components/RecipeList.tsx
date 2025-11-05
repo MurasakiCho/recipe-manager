@@ -19,7 +19,7 @@ export default function RecipeList(props: RecipeListProps){
     return(
         <main>
             {filteredRecipes.length === 0? (
-                <p>No recipes to show.</p>
+                <p className="no-recipes">No recipes to show.</p>
             ) : (
             <ul>
                 {filteredRecipes.map((r) => (
