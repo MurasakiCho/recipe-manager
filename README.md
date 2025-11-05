@@ -26,4 +26,8 @@ Organize recipes by category, filter, and manage them with a clean REST API.
 - Weekly Meal Prep
 
 
+![App Screenshot](./docs/Screenshot%202025-11-05%20085942.png)
+![App Screenshot](./docs/Screenshot%202025-11-05%20085631.png)
+
+
 
