@@ -6,7 +6,6 @@ Organize recipes by category, filter, and manage them with a clean REST API.
 
 ## Features:
 - Create, update, delete, and view recipes
-- Filter recipes by category
 - Sidebar with categories and filter functionality
 - Recipe details: name, ingredients, instructions
 
@@ -23,7 +22,8 @@ Organize recipes by category, filter, and manage them with a clean REST API.
 - Recipe images
 - Nutrition info and recipe macros (calories, protein, carbs, fat)
 - Search bar for recipes by name or ingredient
-- Edit/Delete from the frontend
+- Grocery List
+- Weekly Meal Prep
 
 
 
