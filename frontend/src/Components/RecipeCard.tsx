@@ -1,14 +1,14 @@
 import type { Recipe } from "../types/recipe";
-import "./RecipeList.css";
+import "./RecipeCard.css";
 
-type RecipeListProps = {
+type RecipeCardProps = {
     recipes: Recipe[];
     selectedCategoryId: number | null;
     onDelete: (id: number) => void;
     onEdit: (recipe: Recipe) => void;
 };
 
-export default function RecipeList(props: RecipeListProps){
+export default function RecipeCard(props: RecipeCardProps){
     const { recipes, selectedCategoryId, onDelete, onEdit } = props;
 
     //filter recipes by category

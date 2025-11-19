@@ -1,4 +1,4 @@
-import { Sidebar, RecipeList, AddRecipeForm } from "./components";
+import { Sidebar, RecipeCard, AddRecipeForm } from "./components";
 import type { Category, Recipe } from "./types";
 import { useState, useEffect } from "react";
 import "./App.css"
@@ -90,7 +90,7 @@ export default function App() {
           setShowForm(true);
           }}>Add Recipe</button>
 
-        <RecipeList
+        <RecipeCard
           recipes={recipes}
           selectedCategoryId={selectedCategoryId}
           onDelete={handleDeleteRecipe}
