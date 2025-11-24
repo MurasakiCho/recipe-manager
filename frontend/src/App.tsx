@@ -1,7 +1,9 @@
-import { Sidebar, RecipeCard, AddRecipeForm } from "./components";
+import { Sidebar, HomePage, AddRecipeForm } from "./components";
 import type { Category, Recipe } from "./types";
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css"
+import RecipePage from "./components/RecipePage";
 
 // const categories: Category[] = [
 //   { id: 1, category: "Breakfast"},
@@ -84,18 +86,28 @@ export default function App() {
         selectedCategoryId={selectedCategoryId}
         onSelect={setCategoryId}
       />
-      <main>
-        <button onClick={() => {
-          setRecipeToEdit(null);
-          setShowForm(true);
-          }}>Add Recipe</button>
 
-        <RecipeCard
-          recipes={recipes}
-          selectedCategoryId={selectedCategoryId}
-          onDelete={handleDeleteRecipe}
-          onEdit={handleEditClick}
-        />
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                recipes={recipes}
+                selectedCategoryId={selectedCategoryId}
+                onDelete={handleDeleteRecipe}
+                onEdit={handleEditClick}
+                onAddClick={() => {
+                  setRecipeToEdit(null);
+                  setShowForm(true);
+                }}
+              />
+            }
+          />
+
+          <Route path="/recipe/:id" element={<RecipePage />} />
+
+        </Routes>
       </main>
 
       {showForm && (

@@ -1,15 +1,16 @@
 import type { Recipe } from "../types/recipe";
-import "./RecipeCard.css";
+import "./HomePage.css";
 
-type RecipeCardProps = {
+type HomePageProps = {
     recipes: Recipe[];
     selectedCategoryId: number | null;
     onDelete: (id: number) => void;
     onEdit: (recipe: Recipe) => void;
+    onAddClick: () => void;
 };
 
-export default function RecipeCard(props: RecipeCardProps){
-    const { recipes, selectedCategoryId, onDelete, onEdit } = props;
+export default function HomePage (props: HomePageProps){
+    const { recipes, selectedCategoryId, onDelete, onEdit, onAddClick } = props;
 
     //filter recipes by category
     const filteredRecipes = selectedCategoryId 
@@ -18,6 +19,8 @@ export default function RecipeCard(props: RecipeCardProps){
 
     return(
         <main>
+            <button onClick={onAddClick}>Add Recipe</button>
+
             {filteredRecipes.length === 0? (
                 <p className="no-recipes">No recipes to show.</p>
             ) : (
