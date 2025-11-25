@@ -105,7 +105,16 @@ export default function App() {
             }
           />
 
-          <Route path="/recipe/:id" element={<RecipePage />} />
+          <Route 
+            path="/recipe/:id" 
+            element={
+              <RecipePage 
+                recipes={recipes}
+                selectedCategoryId={selectedCategoryId}
+                onDelete={handleDeleteRecipe}
+              />
+            } 
+          />
 
         </Routes>
       </main>
