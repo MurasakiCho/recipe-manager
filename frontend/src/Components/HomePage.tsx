@@ -1,4 +1,5 @@
 import type { Recipe } from "../types/recipe";
+import { Link } from "react-router-dom";
 import "./HomePage.css";
 
 type HomePageProps = {
@@ -26,6 +27,7 @@ export default function HomePage (props: HomePageProps){
             ) : (
             <ul>
                 {filteredRecipes.map((r) => (
+                    <Link to={`/recipes/${r.id}`} className="recipe-card-link">
                     <li key={r.id} >
                         <h3>{r.recipeName}</h3>
                         <p>{r.ingredients}</p>
@@ -33,6 +35,7 @@ export default function HomePage (props: HomePageProps){
                         <button onClick={() => onDelete(r.id!)}>Delete</button>
                         <button onClick={() => onEdit(r)}>Edit</button>
                     </li>
+                    </Link>
                 ))}
             </ul>
             )}

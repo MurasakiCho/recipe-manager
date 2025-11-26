@@ -12,15 +12,21 @@ export default function RecipePage(props: RecipePageProps) {
     const { recipes } = props;
 
     //extracts the id form the URL
-    const { id } = useParams();
+    const { id } = useParams(); //gives a String
+    const numId = Number(id); 
+
     const [recipe, setRecipe] = useState<Recipe | null>(null);
 
-    const filterRecipe = recipes.filter((r) => r.id === id ? setRecipe(r) : null);
-
+    useEffect(() => {
+      const find = recipes.find((r) => r.id === numId);
+      setRecipe(find || null);
+    }, [recipes, numId])
 
     return(
       <main>
-        {recipe?.recipeName}
+        <h3>{recipe?.recipeName}</h3>
+        <p>{recipe?.ingredients}</p>
+        <p>{recipe?.instructions}</p>
       </main>  
     );
 }
